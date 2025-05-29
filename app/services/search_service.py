@@ -4,7 +4,6 @@ Specialized searches for current Indianapolis emergency and safety information
 """
 
 import requests
-from flask import current_app
 import json
 from datetime import datetime
 from typing import Dict, List, Optional
@@ -14,20 +13,27 @@ class SearchService:
         self.api_key = None
         self.base_url = "https://api.perplexity.ai/chat/completions"
         self.model = "llama-3.1-sonar-small-128k-online"  # Sonar model for web search
-        self.initialize_client()
+        self._initialized = False
     
-    def initialize_client(self):
-        """Initialize Perplexity client with API key"""
+    def _ensure_initialized(self):
+        """Lazy initialization - only initialize when needed"""
+        if self._initialized:
+            return
+            
         try:
+            from flask import current_app
             self.api_key = current_app.config.get('PERPLEXITY_API_KEY')
             if not self.api_key:
                 raise ValueError("PERPLEXITY_API_KEY not found in configuration")
+            self._initialized = True
             print("✅ Perplexity Sonar client initialized successfully")
         except Exception as e:
             print(f"❌ Failed to initialize Perplexity client: {e}")
+            self.api_key = None
 
     def search_emergency_info(self, emergency_type: str) -> Dict:
         """Search for specific current emergency information"""
+        self._ensure_initialized()
         
         emergency_queries = {
             'police': 'Indianapolis IMPD police stations addresses phone numbers districts current contact information 2024',
@@ -43,6 +49,7 @@ class SearchService:
     
     def search_community_resources(self, resource_type: str) -> Dict:
         """Search for current community resources and services"""
+        self._ensure_initialized()
         
         resource_queries = {
             'hospitals': 'Indianapolis hospitals medical centers emergency rooms locations addresses phone numbers current 2024',
@@ -58,6 +65,7 @@ class SearchService:
     
     def search_city_services(self, service_type: str) -> Dict:
         """Search for Indianapolis city services information"""
+        self._ensure_initialized()
         
         service_queries = {
             'pothole': 'Indianapolis pothole reporting Mayor Action Center RequestIndy app current process phone number',
@@ -74,6 +82,7 @@ class SearchService:
     
     def search_weather_alerts(self) -> Dict:
         """Search for current Indianapolis weather alerts"""
+        self._ensure_initialized()
         query = 'Indianapolis Indiana weather alerts warnings current conditions emergency notifications today'
         return self._search_with_focus(query, 'weather')
     
@@ -300,6 +309,7 @@ class SearchService:
         """
         General Indianapolis data search with intent awareness
         """
+        self._ensure_initialized()
         
         # Route to specialized searches based on intent
         if intent == 'emergency':

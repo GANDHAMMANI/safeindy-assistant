@@ -6,7 +6,6 @@ Handles Qdrant vector database operations with proper payload indexes
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 from qdrant_client.http.models import Distance, VectorParams, PointStruct, PayloadSchemaType
-from flask import current_app
 import cohere
 import json
 from datetime import datetime
@@ -21,11 +20,16 @@ class VectorService:
         # CHANGE THIS: Use the correct embedding model and dimensions
         self.embedding_model = "embed-english-v3.0"  # Updated model
         self.vector_dimensions = 1024  # Keep 1024 for Cohere v3.0
-        self.initialize_clients()
+        self._initialized = False
     
-    def initialize_clients(self):
-        """Initialize Qdrant and Cohere clients"""
+    def _ensure_initialized(self):
+        """Lazy initialization - only initialize when needed"""
+        if self._initialized:
+            return
+            
         try:
+            from flask import current_app
+            
             # Initialize Qdrant client
             qdrant_url = current_app.config.get('QDRANT_URL')
             qdrant_key = current_app.config.get('QDRANT_API_KEY')
@@ -40,6 +44,7 @@ class VectorService:
             if cohere_key:
                 self.cohere_client = cohere.Client(cohere_key)
             
+            self._initialized = True
             print("✅ Vector service clients initialized successfully")
             
             # Create collection if it doesn't exist
@@ -95,6 +100,7 @@ class VectorService:
                 
         except Exception as e:
             print(f"❌ Error setting up Qdrant collection: {e}")
+    
     def create_payload_indexes(self):
         """Create necessary payload indexes for filtering"""
         try:
@@ -225,6 +231,8 @@ class VectorService:
         
     def add_knowledge(self, content: str, category: str, source: str = None, metadata: Dict = None) -> str:
         """Add knowledge entry to vector database"""
+        self._ensure_initialized()
+        
         try:
             if not self.client or not self.cohere_client:
                 raise Exception("Vector service not properly initialized")
@@ -318,6 +326,8 @@ class VectorService:
     
     def search_knowledge(self, query: str, intent: str = None, limit: int = 5) -> Dict:
         """FIXED: Search knowledge base with proper filtering"""
+        self._ensure_initialized()
+        
         try:
             if not self.client or not self.cohere_client:
                 return {
@@ -396,6 +406,8 @@ class VectorService:
     
     def update_knowledge(self, point_id: str, new_content: str = None, new_metadata: Dict = None) -> bool:
         """Update existing knowledge entry"""
+        self._ensure_initialized()
+        
         try:
             if not self.client:
                 return False
@@ -449,6 +461,8 @@ class VectorService:
     
     def delete_knowledge(self, point_id: str) -> bool:
         """Delete knowledge entry"""
+        self._ensure_initialized()
+        
         try:
             if not self.client:
                 return False
@@ -467,10 +481,10 @@ class VectorService:
             print(f"❌ Error deleting knowledge: {e}")
             return False
     
-    # In your vector_service.py, replace the get_collection_info method:
-
     def get_collection_info(self) -> Dict:
         """Get information about the knowledge collection"""
+        self._ensure_initialized()
+        
         try:
             if not self.client:
                 return {'error': 'Client not initialized'}
@@ -503,8 +517,11 @@ class VectorService:
         except Exception as e:
             print(f"❌ Error getting collection info: {e}")
             return {'error': str(e)}
+    
     def health_check(self) -> str:
         """Check health of vector service"""
+        self._ensure_initialized()
+        
         try:
             if not self.client:
                 return 'error'
@@ -523,6 +540,8 @@ class VectorService:
     
     def get_similar_queries(self, query: str, limit: int = 3) -> List[str]:
         """Get similar queries from knowledge base"""
+        self._ensure_initialized()
+        
         try:
             search_results = self.search_knowledge(query, limit=limit)
             
@@ -540,6 +559,8 @@ class VectorService:
 
     def rebuild_indexes(self):
         """Utility method to rebuild all payload indexes"""
+        self._ensure_initialized()
+        
         try:
             print("🔄 Rebuilding payload indexes...")
             self.create_payload_indexes()
@@ -548,5 +569,3 @@ class VectorService:
         except Exception as e:
             print(f"❌ Error rebuilding indexes: {e}")
             return False
-        
-

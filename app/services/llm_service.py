@@ -12,33 +12,32 @@ from typing import Dict, List, Optional
 class LLMService:
     def __init__(self):
         self.client = None
-        self.model = "llama3-8b-8192"  # Fast model for real-time chat
-        self.initialize_client()
+        self.model = "llama3-8b-8192"
+        self._initialized = False
     
-    def initialize_client(self):
-        """Initialize Groq client with API key"""
+    def _ensure_initialized(self):
+        """Lazy initialization - only initialize when needed"""
+        if self._initialized:
+            return
+        
         try:
+            from flask import current_app
             api_key = current_app.config.get('GROQ_API_KEY')
             if not api_key:
                 raise ValueError("GROQ_API_KEY not found in configuration")
             
+            from groq import Groq
             self.client = Groq(api_key=api_key)
+            self._initialized = True
             print("✅ Groq client initialized successfully")
         except Exception as e:
             print(f"❌ Failed to initialize Groq client: {e}")
             self.client = None
     
     def generate_response(self, user_message: str, context: Dict = None) -> Dict:
-        """
-        Generate AI response using Groq
+        # Initialize only when method is called
+        self._ensure_initialized()
         
-        Args:
-            user_message: User's input message
-            context: Additional context (location, previous messages, etc.)
-            
-        Returns:
-            Dict with response, intent classification, and metadata
-        """
         if not self.client:
             return {
                 'response': 'Sorry, AI service is currently unavailable. For emergencies, call 911.',
@@ -116,6 +115,7 @@ class LLMService:
         Yields:
             Streaming response chunks
         """
+        self._ensure_initialized()
         if not self.client:
             yield "Sorry, AI service is currently unavailable."
             return
