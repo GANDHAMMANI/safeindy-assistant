@@ -1,0 +1,35 @@
+# Core Flask Framework
+Flask
+python-dotenv
+flask-cors
+
+# AI/ML Services
+groq
+cohere
+qdrant-client
+
+# HTTP Requests & Async
+requests
+aiohttp
+asyncio
+
+# Data Processing
+beautifulsoup4
+pandas
+numpy
+
+# Utilities
+python-dateutil
+validators
+Werkzeug
+
+# Optional: Database (if we need persistence later)
+flask-sqlalchemy
+
+# Development Tools
+pytest
+black
+
+
+python-telegram-bot
+telegram

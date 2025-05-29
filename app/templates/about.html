@@ -1,0 +1,633 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    :root {
+        --primary-blue: #4A90E2;
+        --light-blue: #E8F4FD;
+        --soft-blue: #B8D8F0;
+        --pencil-dark: #2C3E50;
+        --pencil-medium: #5D6D7E;
+        --pencil-light: #85929E;
+        --white: #FFFFFF;
+        --off-white: #F8F9FA;
+        --light-gray: #ECF0F1;
+    }
+
+    body {
+        background: linear-gradient(135deg, var(--off-white) 0%, var(--light-blue) 100%);
+        color: var(--pencil-dark);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        min-height: 100vh;
+    }
+
+    /* Professional Card Styling */
+    .professional-card {
+        background: var(--white);
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(74, 144, 226, 0.08);
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+        overflow: hidden;
+    }
+
+    .professional-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 48px rgba(74, 144, 226, 0.12);
+    }
+
+    .professional-card .card-body {
+        padding: 2.5rem;
+    }
+
+    /* Hero Header */
+    .hero-header {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--soft-blue) 100%);
+        color: var(--white);
+        border-radius: 20px;
+        padding: 4rem 2rem;
+        margin-bottom: 3rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+    }
+
+    .hero-header h1 {
+        font-size: 3.2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-header .lead {
+        font-size: 1.3rem;
+        opacity: 0.95;
+        font-weight: 300;
+    }
+
+    /* Section Headers */
+    .section-title {
+        color: var(--primary-blue);
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        font-size: 1.8rem;
+    }
+
+    .section-title i {
+        margin-right: 0.75rem;
+        background: linear-gradient(135deg, var(--primary-blue), var(--soft-blue));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Feature Icons */
+    .feature-icon {
+        background: linear-gradient(135deg, var(--primary-blue), var(--soft-blue));
+        color: var(--white);
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-right: 1.5rem;
+        box-shadow: 0 4px 16px rgba(74, 144, 226, 0.2);
+        flex-shrink: 0;
+    }
+
+    .feature-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+        background: var(--light-blue);
+        transform: translateX(8px);
+    }
+
+    .feature-item h5 {
+        color: var(--pencil-dark);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .feature-item p {
+        color: var(--pencil-medium);
+        margin: 0;
+    }
+
+    /* Process Steps */
+    .process-step {
+        text-align: center;
+        padding: 2rem 1rem;
+        position: relative;
+    }
+
+    .step-number {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 1.5rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .step-1 { background: linear-gradient(135deg, var(--primary-blue), var(--soft-blue)); }
+    .step-2 { background: linear-gradient(135deg, #27AE60, #58D68D); }
+    .step-3 { background: linear-gradient(135deg, #F39C12, #F7DC6F); }
+
+    .process-step h5 {
+        color: var(--pencil-dark);
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .process-step p {
+        color: var(--pencil-medium);
+        font-size: 0.95rem;
+    }
+
+    /* Technology Lists */
+    .tech-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .tech-list li {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--light-gray);
+        transition: all 0.3s ease;
+    }
+
+    .tech-list li:last-child {
+        border-bottom: none;
+    }
+
+    .tech-list li:hover {
+        padding-left: 1rem;
+        background: var(--light-blue);
+        border-radius: 8px;
+        border-bottom: 1px solid transparent;
+    }
+
+    .tech-list i {
+        margin-right: 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .tech-list .text-primary { color: var(--primary-blue) !important; }
+    .tech-list .text-success { color: #27AE60 !important; }
+
+    /* Privacy & Security Grid */
+    .privacy-grid h5 {
+        color: var(--primary-blue);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .privacy-grid h5 i {
+        margin-right: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    .privacy-grid ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .privacy-grid li {
+        padding: 0.5rem 0;
+        color: var(--pencil-medium);
+        display: flex;
+        align-items: center;
+    }
+
+    .privacy-grid li:before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        background: var(--primary-blue);
+        border-radius: 50%;
+        margin-right: 0.75rem;
+        flex-shrink: 0;
+    }
+
+    /* Alert Styling */
+    .alert-danger {
+        background: linear-gradient(135deg, #E74C3C, #EC7063) !important;
+        border: none !important;
+        color: var(--white) !important;
+        border-radius: 16px !important;
+        padding: 2rem !important;
+        margin: 2rem 0 !important;
+    }
+
+    .alert-danger .alert-heading {
+        color: var(--white) !important;
+        font-weight: 600;
+    }
+
+    /* Buttons */
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary-blue), var(--soft-blue));
+        border: none;
+        border-radius: 12px;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 16px rgba(74, 144, 226, 0.2);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(74, 144, 226, 0.3);
+        background: linear-gradient(135deg, var(--soft-blue), var(--primary-blue));
+    }
+
+    .btn-outline-primary {
+        border: 2px solid var(--primary-blue);
+        color: var(--primary-blue);
+        border-radius: 12px;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        background: transparent;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-primary:hover {
+        background: var(--primary-blue);
+        border-color: var(--primary-blue);
+        color: var(--white);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(74, 144, 226, 0.3);
+    }
+
+    .btn-outline-danger {
+        border: 2px solid #E74C3C;
+        color: #E74C3C;
+        border-radius: 12px;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        background: transparent;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-danger:hover {
+        background: #E74C3C;
+        border-color: #E74C3C;
+        color: var(--white);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(231, 76, 60, 0.3);
+    }
+
+    /* Footer */
+    .footer-section {
+        background: var(--white);
+        padding: 2rem 0;
+        border-radius: 16px 16px 0 0;
+        margin-top: 3rem;
+        border-top: 3px solid var(--light-gray);
+    }
+
+    .footer-section p {
+        color: var(--pencil-light);
+        margin: 0;
+    }
+
+    .footer-section a {
+        color: var(--primary-blue);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+        color: var(--pencil-dark);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .hero-header {
+            padding: 3rem 1.5rem;
+        }
+        
+        .hero-header h1 {
+            font-size: 2.5rem;
+        }
+        
+        .professional-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+        }
+    }
+
+    /* Custom Spacing */
+    .mb-6 { margin-bottom: 4rem !important; }
+    .py-6 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+</style>
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <!-- Hero Header -->
+            <div class="hero-header text-center">
+                <h1>
+                    <i class="fas fa-shield-alt me-3"></i>About SafeIndy
+                </h1>
+                <p class="lead">
+                    Empowering Indianapolis residents with AI-powered public safety assistance
+                </p>
+            </div>
+            
+            <!-- Mission Statement -->
+            <div class="professional-card">
+                <div class="card-body">
+                    <h3 class="section-title">
+                        <i class="fas fa-bullseye"></i>Our Mission
+                    </h3>
+                    <p class="lead" style="color: var(--pencil-medium); font-size: 1.2rem; margin-bottom: 1.5rem;">
+                        SafeIndy Assistant bridges the gap between Indianapolis residents and public safety resources through intelligent, real-time assistance powered by artificial intelligence.
+                    </p>
+                    <p style="color: var(--pencil-medium);">
+                        We believe every resident deserves quick, accurate access to emergency services, city resources, and community safety information. Our AI-powered platform provides 24/7 assistance, helping you navigate safety concerns, report issues, and access the help you need when you need it most.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Features -->
+            <div class="professional-card">
+                <div class="card-body">
+                    <h3 class="section-title">
+                        <i class="fas fa-star"></i>Key Features
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div>
+                                    <h5>24/7 AI Chat Support</h5>
+                                    <p>Get instant responses to safety questions and service requests any time of day.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </div>
+                                <div>
+                                    <h5>Real-time Local Data</h5>
+                                    <p>Access current Indianapolis city services, alerts, and community information.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h5>Emergency Routing</h5>
+                                    <p>Direct connection to 911 and non-emergency services when you need them most.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div>
+                                    <h5>Community Reports</h5>
+                                    <p>Anonymous reporting system for neighborhood safety concerns and updates.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How It Works -->
+            <div class="professional-card">
+                <div class="card-body">
+                    <h3 class="section-title">
+                        <i class="fas fa-cogs"></i>How It Works
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="process-step">
+                                <div class="step-number step-1">1</div>
+                                <h5>Ask Your Question</h5>
+                                <p>
+                                    Type your safety concern, service request, or emergency question in natural language.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="process-step">
+                                <div class="step-number step-2">2</div>
+                                <h5>AI Analysis</h5>
+                                <p>
+                                    Our AI analyzes your request and searches real-time Indianapolis data for the most current information.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="process-step">
+                                <div class="step-number step-3">3</div>
+                                <h5>Get Help</h5>
+                                <p>
+                                    Receive instant guidance, contact information, and step-by-step assistance tailored to your situation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Technology -->
+            <div class="professional-card">
+                <div class="card-body">
+                    <h3 class="section-title">
+                        <i class="fas fa-microchip"></i>Technology Stack
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <h5 style="color: var(--primary-blue); font-weight: 600; margin-bottom: 1.5rem;">
+                                <i class="fas fa-robot me-2"></i>AI & Machine Learning
+                            </h5>
+                            <ul class="tech-list">
+                                <li><i class="fas fa-chevron-right text-primary"></i>Groq LLM for conversational AI</li>
+                                <li><i class="fas fa-chevron-right text-primary"></i>Perplexity Sonar for real-time data</li>
+                                <li><i class="fas fa-chevron-right text-primary"></i>RAG (Retrieval Augmented Generation)</li>
+                                <li><i class="fas fa-chevron-right text-primary"></i>Qdrant vector database</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <h5 style="color: var(--primary-blue); font-weight: 600; margin-bottom: 1.5rem;">
+                                <i class="fas fa-database me-2"></i>Data Sources
+                            </h5>
+                            <ul class="tech-list">
+                                <li><i class="fas fa-chevron-right text-success"></i>Indianapolis.gov live data</li>
+                                <li><i class="fas fa-chevron-right text-success"></i>Mayor's Action Center API</li>
+                                <li><i class="fas fa-chevron-right text-success"></i>Google Maps integration</li>
+                                <li><i class="fas fa-chevron-right text-success"></i>Real-time weather alerts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Privacy & Security -->
+            <div class="professional-card">
+                <div class="card-body">
+                    <h3 class="section-title">
+                        <i class="fas fa-lock"></i>Privacy & Security
+                    </h3>
+                    <div class="row privacy-grid">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-shield-alt"></i>Data Protection</h5>
+                            <ul>
+                                <li>No personal data stored permanently</li>
+                                <li>Session-based conversations only</li>
+                                <li>Anonymous community reporting</li>
+                                <li>Encrypted data transmission</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-ambulance"></i>Emergency Priority</h5>
+                            <ul>
+                                <li>Direct 911 routing for emergencies</li>
+                                <li>No delays for critical situations</li>
+                                <li>Immediate emergency contact display</li>
+                                <li>Clear emergency vs. non-emergency guidance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Community Impact -->
+            <div class="professional-card">
+                <div class="card-body">
+                    <h3 class="section-title">
+                        <i class="fas fa-heart"></i>Community Impact
+                    </h3>
+                    <p style="color: var(--pencil-medium); font-size: 1.1rem; margin-bottom: 2rem;">
+                        SafeIndy Assistant was built for the <strong style="color: var(--primary-blue);">Indianapolis Civic Tech Hackathon 2025</strong> with the goal of serving all 870,000+ Indianapolis residents. Our focus is on:
+                    </p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="privacy-grid">
+                                <ul>
+                                    <li><strong>Accessibility:</strong> Available 24/7 in multiple languages</li>
+                                    <li><strong>Equity:</strong> Free access to all residents</li>
+                                    <li><strong>Efficiency:</strong> Faster response times for service requests</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="privacy-grid">
+                                <ul>
+                                    <li><strong>Transparency:</strong> Clear sources and citations</li>
+                                    <li><strong>Community:</strong> Anonymous reporting and neighborhood alerts</li>
+                                    <li><strong>Innovation:</strong> Cutting-edge AI for public service</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Emergency Disclaimer -->
+            <div class="alert alert-danger" role="alert">
+                <h5 class="alert-heading">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Important Emergency Notice
+                </h5>
+                <p class="mb-2">
+                    <strong>For immediate life-threatening emergencies, always call 911 directly.</strong>
+                </p>
+                <p class="mb-0">
+                    SafeIndy Assistant is designed to complement, not replace, existing emergency services. While we strive for accuracy, always verify critical information through official channels.
+                </p>
+            </div>
+            
+            <!-- Call to Action -->
+            <div class="text-center mt-5 mb-6">
+                <h3 class="mb-4" style="color: var(--pencil-dark); font-weight: 600;">Ready to Get Started?</h3>
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="{{ url_for('chat.chat_interface') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-comments me-2"></i>Start Chatting
+                    </a>
+                    <a href="{{ url_for('main.index') }}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-home me-2"></i>Back to Home
+                    </a>
+                    <a href="{{ url_for('emergency.emergency_page') }}" class="btn btn-outline-danger btn-lg">
+                        <i class="fas fa-phone me-2"></i>Emergency Info
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Version & Contact Info -->
+            <div class="footer-section text-center">
+                <p class="mb-2" style="color: var(--pencil-medium); font-weight: 600;">
+                    <strong>SafeIndy Assistant</strong> v{{ APP_VERSION }}
+                </p>
+                <p class="mb-0">
+                    Built with ❤️ for Indianapolis residents | 
+                    <a href="{{ url_for('main.health_check') }}">System Status</a> | 
+                    <a href="/api/status">API Status</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

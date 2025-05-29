@@ -1,0 +1,690 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section-custom">
+    <div class="container">
+        <div class="row align-items-center min-vh-60">
+            <div class="col-lg-8">
+                <div class="hero-content fade-in">
+                    <h1 class="hero-title-custom">
+                        <i class="fas fa-shield-alt me-3 hero-icon"></i>SafeIndy Assistant
+                    </h1>
+                    <p class="hero-subtitle-custom">
+                        Your AI-powered public safety companion for Indianapolis. 
+                        Get instant help with emergencies, city services, and community safety.
+                    </p>
+                    <div class="hero-buttons d-flex gap-3 flex-wrap">
+                        <a href="{{ url_for('chat.chat_interface') }}" class="btn-custom btn-primary-custom">
+                            <i class="fas fa-comments me-2"></i>Start Chat
+                        </a>
+                        <a href="#emergency" class="btn-custom btn-outline-custom">
+                            <i class="fas fa-phone me-2"></i>Emergency Info
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="hero-graphic fade-in">
+                    <i class="fas fa-city hero-city-icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="features-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <div class="section-header fade-in">
+                    <h2 class="section-title">How SafeIndy Helps You</h2>
+                    <p class="section-subtitle">Comprehensive public safety assistance for all Indianapolis residents</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Emergency Services -->
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card-custom h-100 fade-in" data-delay="0.1s">
+                    <div class="feature-card-body">
+                        <div class="feature-icon-wrapper emergency-icon">
+                            <i class="fas fa-ambulance fa-2x"></i>
+                        </div>
+                        <h5 class="feature-title">Emergency Services</h5>
+                        <p class="feature-description">Instant access to police, fire, and medical emergency contacts. Quick routing for urgent situations.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- City Services -->
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card-custom h-100 fade-in" data-delay="0.2s">
+                    <div class="feature-card-body">
+                        <div class="feature-icon-wrapper success-icon">
+                            <i class="fas fa-city fa-2x"></i>
+                        </div>
+                        <h5 class="feature-title">City Services</h5>
+                        <p class="feature-description">Report potholes, request services, check trash schedules. Connect with Mayor's Action Center.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Community Watch -->
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card-custom h-100 fade-in" data-delay="0.3s">
+                    <div class="feature-card-body">
+                        <div class="feature-icon-wrapper warning-icon">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <h5 class="feature-title">Community Watch</h5>
+                        <p class="feature-description">Anonymous reporting, neighborhood safety alerts, and community resource discovery.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Real-time Data -->  
+            <div class="col-lg-3 col-md-6">
+                <div class="feature-card-custom h-100 fade-in" data-delay="0.4s">
+                    <div class="feature-card-body">
+                        <div class="feature-icon-wrapper info-icon">
+                            <i class="fas fa-chart-line fa-2x"></i>
+                        </div>
+                        <h5 class="feature-title">Live Data</h5>
+                        <p class="feature-description">Current weather alerts, traffic updates, and real-time Indianapolis safety information.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Emergency Numbers Section -->
+<div id="emergency" class="emergency-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-4">
+                <div class="section-header fade-in">
+                    <h2 class="emergency-title">
+                        <i class="fas fa-phone-alt me-2"></i>Important Numbers
+                    </h2>
+                    <p class="emergency-subtitle">Quick access to essential Indianapolis emergency and city services</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="emergency-card danger-card fade-in" data-delay="0.1s">
+                    <div class="emergency-card-body">
+                        <i class="fas fa-exclamation-triangle emergency-icon-large"></i>
+                        <h4 class="emergency-type">Emergency</h4>
+                        <h2 class="emergency-number">911</h2>
+                        <p class="emergency-service">Police, Fire, Medical</p>
+                        <small class="emergency-note">Text to 911 available</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="emergency-card primary-card fade-in" data-delay="0.2s">
+                    <div class="emergency-card-body">
+                        <i class="fas fa-shield-alt emergency-icon-large"></i>
+                        <h5 class="emergency-type">Police Non-Emergency</h5>
+                        <h4 class="emergency-number">317-327-3811</h4>
+                        <p class="emergency-service">IMPD reports & assistance</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="emergency-card success-card fade-in" data-delay="0.3s">
+                    <div class="emergency-card-body">
+                        <i class="fas fa-tools emergency-icon-large"></i>
+                        <h5 class="emergency-type">City Services (311)</h5>
+                        <h4 class="emergency-number">317-327-4622</h4>
+                        <p class="emergency-service">Mayor's Action Center</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="emergency-card warning-card fade-in" data-delay="0.4s">
+                    <div class="emergency-card-body">
+                        <i class="fas fa-skull-crossbones emergency-icon-large"></i>
+                        <h5 class="emergency-type">Poison Control</h5>
+                        <h4 class="emergency-number">1-800-222-1222</h4>
+                        <p class="emergency-service">24/7 Poison Help</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="cta-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="cta-content fade-in">
+                    <h2 class="cta-title">Ready to Get Started?</h2>
+                    <p class="cta-subtitle">SafeIndy Assistant is here to help Indianapolis residents 24/7</p>
+                    <a href="{{ url_for('chat.chat_interface') }}" class="btn-custom btn-primary-custom btn-lg-custom">
+                        <i class="fas fa-comments me-2"></i>Start Your Conversation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Professional Color Palette */
+:root {
+    --primary-blue: #4A90E2;
+    --light-blue: #E8F4FD;
+    --soft-blue: #B8D8F0;
+    --pencil-dark: #2C3E50;
+    --pencil-medium: #5D6D7E;
+    --pencil-light: #85929E;
+    --white: #FFFFFF;
+    --off-white: #F8F9FA;
+    --light-gray: #ECF0F1;
+    --success-green: #27AE60;
+    --warning-orange: #F39C12;
+    --danger-red: #E74C3C;
+    
+    --shadow-soft: 0 2px 20px rgba(44, 62, 80, 0.08);
+    --shadow-medium: 0 8px 30px rgba(44, 62, 80, 0.12);
+    --shadow-floating: 0 15px 35px rgba(44, 62, 80, 0.15);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Hero Section */
+.hero-section-custom {
+    background: linear-gradient(135deg, var(--white) 0%, var(--light-blue) 100%);
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section-custom::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--soft-blue), var(--primary-blue));
+}
+
+.min-vh-60 {
+    min-height: 60vh;
+}
+
+.hero-title-custom {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--pencil-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.hero-icon {
+    color: var(--primary-blue);
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(74, 144, 226, 0.3));
+}
+
+.hero-subtitle-custom {
+    font-size: 1.3rem;
+    color: var(--pencil-medium);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+.hero-city-icon {
+    font-size: 8rem;
+    color: var(--primary-blue);
+    opacity: 0.3;
+    animation: float 4s ease-in-out infinite -1s;
+    filter: drop-shadow(0 8px 16px rgba(74, 144, 226, 0.2));
+}
+
+/* Buttons */
+.btn-custom {
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    transition: var(--transition-smooth);
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary-custom {
+    background: var(--primary-blue);
+    color: var(--white);
+    border: 2px solid var(--primary-blue);
+}
+
+.btn-primary-custom::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition-smooth);
+}
+
+.btn-primary-custom:hover {
+    background: var(--pencil-dark);
+    border-color: var(--pencil-dark);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-primary-custom:hover::before {
+    left: 100%;
+}
+
+.btn-outline-custom {
+    background: transparent;
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+}
+
+.btn-outline-custom:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.btn-lg-custom {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+}
+
+/* Features Section */
+.features-section {
+    padding: 5rem 0;
+    background: var(--off-white);
+}
+
+.section-header {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--pencil-dark);
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: var(--pencil-medium);
+    font-weight: 400;
+}
+
+.feature-card-custom {
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-bounce);
+    overflow: hidden;
+    position: relative;
+}
+
+.feature-card-custom::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-blue);
+    transform: scaleX(0);
+    transition: var(--transition-smooth);
+}
+
+.feature-card-custom:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-floating);
+    border-color: var(--primary-blue);
+}
+
+.feature-card-custom:hover::after {
+    transform: scaleX(1);
+}
+
+.feature-card-body {
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+
+.feature-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+    animation: float 4s ease-in-out infinite;
+}
+
+.emergency-icon { background: var(--danger-red); animation-delay: 0s; }
+.success-icon { background: var(--success-green); animation-delay: -1s; }
+.warning-icon { background: var(--warning-orange); animation-delay: -2s; }
+.info-icon { background: var(--primary-blue); animation-delay: -3s; }
+
+.feature-title {
+    color: var(--pencil-dark);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.feature-description {
+    color: var(--pencil-medium);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Emergency Section */
+.emergency-section {
+    padding: 5rem 0;
+    background: var(--white);
+    position: relative;
+}
+
+.emergency-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--danger-red);
+    margin-bottom: 1rem;
+}
+
+.emergency-subtitle {
+    font-size: 1.1rem;
+    color: var(--pencil-medium);
+    font-weight: 400;
+}
+
+.emergency-card {
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-bounce);
+    overflow: hidden;
+    position: relative;
+    border: 2px solid;
+}
+
+.emergency-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-floating);
+}
+
+.danger-card {
+    border-color: var(--danger-red);
+}
+
+.danger-card:hover {
+    background: rgba(231, 76, 60, 0.05);
+}
+
+.primary-card {
+    border-color: var(--primary-blue);
+}
+
+.primary-card:hover {
+    background: rgba(74, 144, 226, 0.05);
+}
+
+.success-card {
+    border-color: var(--success-green);
+}
+
+.success-card:hover {
+    background: rgba(39, 174, 96, 0.05);
+}
+
+.warning-card {
+    border-color: var(--warning-orange);
+}
+
+.warning-card:hover {
+    background: rgba(243, 156, 18, 0.05);
+}
+
+.emergency-card-body {
+    padding: 2rem;
+    text-align: center;
+}
+
+.emergency-icon-large {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.danger-card .emergency-icon-large { color: var(--danger-red); }
+.primary-card .emergency-icon-large { color: var(--primary-blue); }
+.success-card .emergency-icon-large { color: var(--success-green); }
+.warning-card .emergency-icon-large { color: var(--warning-orange); }
+
+.emergency-type {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.danger-card .emergency-type { color: var(--danger-red); }
+.primary-card .emergency-type { color: var(--primary-blue); }
+.success-card .emergency-type { color: var(--success-green); }
+.warning-card .emergency-type { color: var(--warning-orange); }
+
+.emergency-number {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--pencil-dark);
+}
+
+.emergency-service {
+    color: var(--pencil-medium);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.emergency-note {
+    color: var(--pencil-light);
+    font-style: italic;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, var(--light-blue) 0%, var(--soft-blue) 100%);
+    position: relative;
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--pencil-dark);
+    margin-bottom: 1rem;
+}
+
+.cta-subtitle {
+    font-size: 1.2rem;
+    color: var(--pencil-medium);
+    margin-bottom: 2rem;
+    font-weight: 400;
+}
+
+/* Scroll Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: var(--transition-smooth);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title-custom {
+        font-size: 2.5rem;
+    }
+    
+    .hero-city-icon {
+        font-size: 5rem;
+        margin-top: 2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .emergency-title {
+        font-size: 2rem;
+    }
+    
+    .cta-title {
+        font-size: 2rem;
+    }
+    
+    .feature-card-body,
+    .emergency-card-body {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section-custom {
+        padding: 3rem 0;
+    }
+    
+    .features-section,
+    .emergency-section,
+    .cta-section {
+        padding: 3rem 0;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-custom {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = entry.target.getAttribute('data-delay') || '0s';
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, parseFloat(delay) * 1000);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Enhanced hover effects for cards
+    document.querySelectorAll('.feature-card-custom, .emergency-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Button hover effects
+    document.querySelectorAll('.btn-custom').forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px)';
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Smooth scrolling for emergency section link
+    document.querySelector('a[href="#emergency"]').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('emergency').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
+
+    console.log('🛡️ SafeIndy Homepage - Professional UI Ready!');
+});
+</script>
+{% endblock %}
+

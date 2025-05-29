@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ page_title or 'SafeIndy Assistant' }}{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Professional Color Palette */
+            --primary-blue: #4A90E2;
+            --light-blue: #E8F4FD;
+            --soft-blue: #B8D8F0;
+            --pencil-dark: #2C3E50;
+            --pencil-medium: #5D6D7E;
+            --pencil-light: #85929E;
+            --white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --light-gray: #ECF0F1;
+            --success-green: #27AE60;
+            --warning-orange: #F39C12;
+            --danger-red: #E74C3C;
+            
+            /* Shadows */
+            --shadow-soft: 0 2px 20px rgba(44, 62, 80, 0.08);
+            --shadow-medium: 0 8px 30px rgba(44, 62, 80, 0.12);
+            --shadow-floating: 0 15px 35px rgba(44, 62, 80, 0.15);
+            
+            /* Transitions */
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--off-white) 0%, var(--light-blue) 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--pencil-dark);
+            line-height: 1.6;
+        }
+
+        /* Floating Animation Keyframes */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: var(--white) !important;
+            box-shadow: var(--shadow-soft);
+            border-bottom: 1px solid var(--light-gray);
+            padding: 1rem 0;
+            transition: var(--transition-smooth);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .navbar:hover {
+            box-shadow: var(--shadow-medium);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--pencil-dark) !important;
+            text-decoration: none;
+            transition: var(--transition-bounce);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.02);
+            color: var(--primary-blue) !important;
+        }
+
+        .navbar-brand i {
+            color: var(--primary-blue);
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(74, 144, 226, 0.2));
+        }
+
+        .nav-link {
+            color: var(--pencil-medium) !important;
+            font-weight: 500;
+            padding: 0.75rem 1rem !important;
+            border-radius: 8px;
+            transition: var(--transition-smooth);
+            position: relative;
+            margin: 0 0.25rem;
+        }
+
+        .nav-link:hover {
+            background: var(--light-blue);
+            color: var(--primary-blue) !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: var(--primary-blue);
+            color: var(--white) !important;
+        }
+
+        /* Navbar toggler for dark theme compatibility */
+        .navbar-toggler {
+            border: 1px solid var(--pencil-light);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2844, 62, 80, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        /* Emergency Numbers in Navbar */
+        .navbar-text {
+            background: var(--white);
+            border: 2px solid var(--light-blue);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            animation: slideInRight 0.8s ease-out 0.3s both;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-soft);
+            color: var(--pencil-dark) !important;
+        }
+
+        .navbar-text:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--primary-blue);
+        }
+
+        .navbar-text .text-danger {
+            animation: pulse 2s ease-in-out infinite;
+            font-weight: 700;
+            color: var(--danger-red) !important;
+        }
+
+        .navbar-text strong {
+            color: var(--danger-red);
+            font-size: 1.1rem;
+        }
+
+        /* Main Content */
+        .container-fluid {
+            padding: 2rem 1rem;
+        }
+
+        /* Content wrapper for pages */
+        .content-wrapper {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--light-gray);
+            transition: var(--transition-smooth);
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .content-wrapper:hover {
+            box-shadow: var(--shadow-medium);
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Bootstrap Components */
+        
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary:hover {
+            background: var(--pencil-dark);
+            border-color: var(--pencil-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            border-radius: 8px;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-success {
+            background: var(--success-green);
+            border-color: var(--success-green);
+        }
+
+        .btn-warning {
+            background: var(--warning-orange);
+            border-color: var(--warning-orange);
+        }
+
+        .btn-danger {
+            background: var(--danger-red);
+            border-color: var(--danger-red);
+        }
+
+        /* Cards */
+        .card {
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-medium);
+            transform: translateY(-4px);
+        }
+
+        .card-header {
+            background: var(--light-blue);
+            border-bottom: 1px solid var(--soft-blue);
+            font-weight: 600;
+            color: var(--pencil-dark);
+            padding: 1rem 1.25rem;
+        }
+
+        .card-body {
+            padding: 1.5rem 1.25rem;
+        }
+
+        .card-footer {
+            background: var(--off-white);
+            border-top: 1px solid var(--light-gray);
+            padding: 1rem 1.25rem;
+        }
+
+        /* Alerts */
+        .alert {
+            border-radius: 12px;
+            border: none;
+            box-shadow: var(--shadow-soft);
+            font-weight: 500;
+        }
+
+        .alert-primary {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        .alert-success {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success-green);
+        }
+
+        .alert-warning {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning-orange);
+        }
+
+        .alert-danger {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger-red);
+        }
+
+        /* Forms */
+        .form-control {
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            transition: var(--transition-smooth);
+            padding: 0.75rem 1rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--pencil-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        .table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .table thead th {
+            background: var(--light-blue);
+            color: var(--pencil-dark);
+            font-weight: 600;
+            border: none;
+        }
+
+        .table tbody tr:hover {
+            background: var(--off-white);
+        }
+
+        /* Badges */
+        .badge {
+            font-weight: 500;
+            border-radius: 6px;
+        }
+
+        .badge.bg-primary {
+            background: var(--primary-blue) !important;
+        }
+
+        .badge.bg-success {
+            background: var(--success-green) !important;
+        }
+
+        .badge.bg-warning {
+            background: var(--warning-orange) !important;
+        }
+
+        .badge.bg-danger {
+            background: var(--danger-red) !important;
+        }
+
+        /* Footer */
+        .bg-dark {
+            background: var(--white) !important;
+            border-top: 1px solid var(--light-gray);
+            color: var(--pencil-dark) !important;
+        }
+
+        .text-light {
+            color: var(--pencil-medium) !important;
+        }
+
+        footer h5, footer h6 {
+            color: var(--pencil-dark) !important;
+            font-weight: 600;
+        }
+
+        footer a.text-light {
+            color: var(--primary-blue) !important;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        footer a.text-light:hover {
+            color: var(--pencil-dark) !important;
+            transform: translateX(2px);
+        }
+
+        footer .text-muted {
+            color: var(--pencil-light) !important;
+        }
+
+        /* Status Indicator */
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--success-green);
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Emergency contact styling in footer */
+        footer strong {
+            color: var(--pencil-dark);
+        }
+
+        footer .text-danger {
+            color: var(--danger-red) !important;
+            font-weight: 700;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar-text {
+                margin-top: 1rem;
+                text-align: center;
+            }
+            
+            .container-fluid {
+                padding: 1rem;
+            }
+            
+            .content-wrapper {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Loading states */
+        .loading-shimmer {
+            background: linear-gradient(90deg, var(--light-gray) 25%, var(--off-white) 50%, var(--light-gray) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        /* Accessibility improvements */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus states */
+        .btn:focus,
+        .nav-link:focus,
+        .form-control:focus {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition-smooth);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* List group enhancements */
+        .list-group-item {
+            border: 1px solid var(--light-gray);
+            transition: var(--transition-smooth);
+        }
+
+        .list-group-item:hover {
+            background: var(--light-blue);
+            transform: translateX(5px);
+        }
+
+        .list-group-item.active {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+
+        /* Progress bars */
+        .progress {
+            border-radius: 8px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .progress-bar {
+            background: var(--primary-blue);
+        }
+
+        /* Dropdown menus */
+        .dropdown-menu {
+            border: 1px solid var(--light-gray);
+            box-shadow: var(--shadow-medium);
+            border-radius: 8px;
+        }
+
+        .dropdown-item:hover {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+        }
+
+        /* Modals */
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: var(--shadow-floating);
+        }
+
+        .modal-header {
+            background: var(--light-blue);
+            border-bottom: 1px solid var(--soft-blue);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .modal-footer {
+            background: var(--off-white);
+            border-top: 1px solid var(--light-gray);
+            border-radius: 0 0 12px 12px;
+        }
+    </style>
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                <i class="fas fa-shield-alt me-2"></i>{{ APP_NAME }}
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.index') }}">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('chat.chat_interface') }}">
+                            <i class="fas fa-comments"></i> Chat Assistant
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.about') }}">
+                            <i class="fas fa-info-circle"></i> About
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Emergency Numbers (Always Visible) -->
+                <div class="navbar-text text-light">
+                    <small>
+                        <i class="fas fa-phone text-danger"></i> Emergency: <strong>911</strong> |
+                        <i class="fas fa-phone"></i> Police: <strong>317-327-3811</strong>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container-fluid">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-shield-alt"></i> {{ APP_NAME }}</h5>
+                    <p class="mb-0">Serving Indianapolis residents 24/7</p>
+                    <div class="d-flex align-items-center mt-2">
+                        <span class="status-indicator"></span>
+                        <small class="text-muted">Version {{ APP_VERSION }}</small>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h6>Emergency Contacts</h6>
+                    <p class="mb-1"><strong>Emergency:</strong> <span class="text-danger">{{ EMERGENCY_NUMBERS.emergency }}</span></p>
+                    <p class="mb-1"><strong>Police:</strong> {{ EMERGENCY_NUMBERS.police_non_emergency }}</p>
+                    <p class="mb-0"><strong>City Services:</strong> {{ EMERGENCY_NUMBERS.mayors_action_center }}</p>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center">
+                <small class="text-muted">
+                    &copy; {{ year }} SafeIndy Assistant | 
+                    Built for Indianapolis residents |
+                    <a href="{{ url_for('main.health_check') }}" class="text-light">System Status</a>
+                </small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    <script>
+        // Professional UI Enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Fade in animations on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Enhanced button interactions
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    if (!this.disabled) {
+                        this.style.transform = 'translateY(-2px)';
+                    }
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Card hover effects
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // System status indicator animation
+            setInterval(() => {
+                const indicators = document.querySelectorAll('.status-indicator');
+                indicators.forEach(indicator => {
+                    indicator.style.opacity = '0.5';
+                    setTimeout(() => {
+                        indicator.style.opacity = '1';
+                    }, 300);
+                });
+            }, 5000);
+
+            // Active nav link highlighting based on current URL
+            const currentPath = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Loading states for forms
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', function() {
+                    const submitBtn = this.querySelector('button[type="submit"], input[type="submit"]');
+                    if (submitBtn && !submitBtn.disabled) {
+                        const originalText = submitBtn.innerHTML || submitBtn.value;
+                        if (submitBtn.tagName === 'BUTTON') {
+                            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+                        }
+                        submitBtn.disabled = true;
+                        
+                        // Re-enable after 5 seconds if form hasn't been submitted
+                        setTimeout(() => {
+                            if (submitBtn.tagName === 'BUTTON') {
+                                submitBtn.innerHTML = originalText;
+                            }
+                            submitBtn.disabled = false;
+                        }, 5000);
+                    }
+                });
+            });
+
+            // Enhanced table row hover effects
+            document.querySelectorAll('.table tbody tr').forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(5px)';
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+
+            // List group item enhancements
+            document.querySelectorAll('.list-group-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateX(5px)';
+                    }
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+
+            console.log('🛡️ SafeIndy Assistant - Professional Flask Template with Full Functionality Ready!');
+        });
+
+        // Auto-dismiss alerts after 5 seconds
+        document.querySelectorAll('.alert').forEach(alert => {
+            if (alert.classList.contains('alert-dismissible')) {
+                setTimeout(() => {
+                    const closeBtn = alert.querySelector('.btn-close');
+                    if (closeBtn) {
+                        closeBtn.click();
+                    }
+                }, 5000);
+            }
+        });
+
+        // Smooth page transitions
+        window.addEventListener('beforeunload', function() {
+            document.body.style.opacity = '0.8';
+            document.body.style.transform = 'scale(0.98)';
+        });
+    </script>
+    
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
