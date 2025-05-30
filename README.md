@@ -1,8 +1,6 @@
 # 🚨 SafeIndy Assistant
 
 **AI-Powered Emergency Response & Civic Assistance for Indianapolis**
-![1](https://github.com/user-attachments/assets/353019bc-9786-4304-a17a-195202f6544b)
-
 
 ![Screenshot_30-5-2025_144118_127 0 0 1](https://github.com/user-attachments/assets/1a3941a4-3f12-47db-b46b-3aa1d43e198f)
 ![Screenshot_30-5-2025_144211_127 0 0 1](https://github.com/user-attachments/assets/2bea6299-c186-4a58-9c96-163726d1c784)
@@ -297,7 +295,7 @@ SafeIndy addresses the challenge of creating chatbots to enhance public safety f
 - **Backend Architect:** [@AF011](https://github.com/AF011) - Abdul Faheem
 
 **Project Link:** [https://github.com/GANDHAMMANI/safeindy-assistant](https://github.com/GANDHAMMANI/safeindy-assistant)
-
+**Demo Video:** [https://youtu.be/kddoc4v4UQI](https://youtu.be/kddoc4v4UQI)
 ---
 
 ## 🌟 **The SafeIndy Story: From Code to Community**
