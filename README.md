@@ -118,16 +118,14 @@ safeindy-assistant/
 │
 ├── flask_session/              # Session storage
 │
-├── tests/                      # Test suite
-│   └── test_emergency_detection.py # Emergency AI testing
-│
 ├── .env                        # Environment variables
 ├── .gitignore                  # Git exclusions
 ├── README.md                   # Project overview
 ├── LICENSE                     # MIT License
 ├── requirements.txt            # Python dependencies
 ├── run.py                      # Development server launcher
-├── run_telegram.py             # Telegram bot launcher
+├── run_telegram.py             # Telegram bot launcher              
+│── test_emergency_detection.py  # Test suite Emergency AI testing
 └── venv/                       # Virtual environment
 ```
 
