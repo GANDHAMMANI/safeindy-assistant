@@ -295,7 +295,7 @@ SafeIndy addresses the challenge of creating chatbots to enhance public safety f
 - **Backend Architect:** [@AF011](https://github.com/AF011) - Abdul Faheem
 
 **Project Link:** [https://github.com/GANDHAMMANI/safeindy-assistant](https://github.com/GANDHAMMANI/safeindy-assistant)
-**Demo Video:** [https://youtu.be/kddoc4v4UQI](https://youtu.be/kddoc4v4UQI)
+- **Demo Video:** [https://youtu.be/kddoc4v4UQI](https://youtu.be/kddoc4v4UQI)
 ---
 
 ## 🌟 **The SafeIndy Story: From Code to Community**
