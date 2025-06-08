@@ -119,8 +119,6 @@ safeindy-assistant/
 │       ├── cache_manager.py        
 │       ├── data_validator.py        
 │       ├── rate_limiter.py        
-│   ├── __init__.py
-    ├── config.py
 ├── flask_session/              # Session storage    
 ├── .env                        # Environment variables
 ├── .gitignore                  # Git exclusions
