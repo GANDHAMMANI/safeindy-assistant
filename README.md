@@ -114,11 +114,7 @@ safeindy-assistant/
 │       ├── base.html           # Base template layout
 │       ├── index.html          # Landing page
 │       ├── chat.html           # Chat interface
-│       └── about.html          # Project information
-│   └── utlis/               
-│       ├── cache_manager.py        
-│       ├── data_validator.py        
-│       ├── rate_limiter.py        
+│       └── about.html          # Project information      
 ├── flask_session/              # Session storage    
 ├── .env                        # Environment variables
 ├── .gitignore                  # Git exclusions
