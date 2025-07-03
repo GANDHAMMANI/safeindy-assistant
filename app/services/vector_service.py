@@ -17,9 +17,8 @@ class VectorService:
         self.client = None
         self.cohere_client = None
         self.collection_name = "safeindy_knowledge"
-        # CHANGE THIS: Use the correct embedding model and dimensions
-        self.embedding_model = "embed-english-v3.0"  # Updated model
-        self.vector_dimensions = 1024  # Keep 1024 for Cohere v3.0
+        self.embedding_model = "embed-english-v3.0"
+        self.vector_dimensions = 1024  
         self._initialized = False
     
     def _ensure_initialized(self):
